@@ -11,7 +11,7 @@ class Block {
     }
 
     calculateHash(){
-      return SHA256(this.index+this.previousHash+this.timestamp+JSON.stringify(this.data) + nonce).toString();
+      return SHA256(this.index+this.previousHash+this.timestamp+JSON.stringify(this.data) + this.nonce).toString();
     }
 
     mineBlock(difficulty){
@@ -20,14 +20,14 @@ class Block {
             this.hash = this.calculateHash();
         }
 
-        console.log("Block mined: " + this.hash);
+        console.log("Block mined: " + this.hash + " in " + this.nonce + " loops");
     }
 }
 
 class BlockChain{
     constructor(){
       this.chain = [this.createGenesisBlock()];
-      this.difficulty = 2;
+      this.difficulty = 4;
     }
     createGenesisBlock(){
       return new Block(0, "01/01/2017", "Genesis block", "0");
@@ -67,11 +67,12 @@ class BlockChain{
 
 let codeCraftCoin = new BlockChain();
 codeCraftCoin.addBlock(new Block(1, "10/07/2017",{amount:4}));
-codeCraftCoin.addBlock(new Block(1, "12/07/2017",{amount:10}));
+codeCraftCoin.addBlock(new Block(2, "12/07/2017",{amount:10}));
+codeCraftCoin.addBlock(new Block(3, "13/07/2017",{amount:11}));
 //let a = Array(4+1).join("0");
 // Log to console
 
-console.log(codeCraftCoin.chain);
+//console.log(codeCraftCoin.chain);
 
 
-console.log(codeCraftCoin.isChainValid());
+//console.log(codeCraftCoin.isChainValid());
